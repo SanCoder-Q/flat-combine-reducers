@@ -1,0 +1,37 @@
+{
+  "name": "flat-combine-reducers",
+  "version": "0.0.1",
+  "description": "Turns multiple reducers into a single reducer with support of declare the initial states as default parameters",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "keywords": [
+    "reduce",
+    "reducer",
+    "reducers",
+    "redux",
+    "initial state",
+    "default parameters"
+  ],
+  "author": "Jianming Qu <sancoder.q@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/SanCoder-Q/flat-combine-reducers/issues"
+  },
+  "homepage": "https://github.com/SanCoder-Q/flat-combine-reducers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SanCoder-Q/flat-combine-reducers.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "eslint": "^0.24.1",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.22.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1"
+  }
+}
