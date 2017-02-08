@@ -1,6 +1,8 @@
 # flat-combine-reducers
 
 [![build status](https://travis-ci.org/SanCoder-Q/flat-combine-reducers.svg?branch=master)](https://travis-ci.org/SanCoder-Q/flat-combine-reducers)
+[![npm](https://img.shields.io/npm/dt/flat-combine-reducers.svg)](https://www.npmjs.com/package/flat-combine-reducers)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Turns multiple reducer functions, into a single reducer function, with support of declaring the initial states as default parameters.
 
