@@ -1,8 +1,8 @@
 {
   "name": "flat-combine-reducers",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Turns multiple reducers into a single reducer with support of declare the initial states as default parameters",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "keywords": [
     "reduce",
     "reducer",
@@ -11,7 +11,7 @@
     "initial state",
     "default parameters"
   ],
-  "author": "Jianming Qu <sancoder.q@gmail.com>",
+  "author": "Jianming Qu <sancoder.q@gmail.com> (https://jmqu.tech)",
   "bugs": {
     "url": "https://github.com/SanCoder-Q/flat-combine-reducers/issues"
   },
@@ -19,6 +19,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/SanCoder-Q/flat-combine-reducers.git"
+  },
+  "release": {
+    "debug": false
   },
   "license": "MIT",
   "devDependencies": {

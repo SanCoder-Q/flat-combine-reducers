@@ -1,14 +1,28 @@
 language: node_js
 node_js:
-  - "4"
-  - "6"
-  - "7"
+  - '4'
+  - '6'
+  - '7'
+matrix:
+  fast_finish: true
+cache:
+  directories:
+    - node_modules
 before_script:
-  - npm install -g yarn gulp
-  - yarn install
+  - npm install -g gulp yarn
+  - yarn
 script:
-  - gulp test
+  - gulp build
 after_success:
-- >-
-  ./ci/npm-login.sh &&
-  npm publish
+  - npm install -g semantic-release
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: semantic-release pre && npm publish && semantic-release post || true
+  on:
+    branch: master
+    node: 7
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
