@@ -1,3 +1,14 @@
 language: node_js
 node_js:
+  - "4"
   - "6"
+  - "7"
+before_script:
+  - npm install -g yarn gulp
+  - yarn install
+script:
+  - gulp test
+after_success:
+- >-
+  ./ci/npm-login.sh &&
+  npm publish

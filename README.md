@@ -12,13 +12,22 @@ The reason of the name is it flaten the `state` of using the [`combineReducers`]
 npm install --save flat-combine-reducers
 ```
 
-## Example
+## Examples
+
+### Return identity reducer if parameter is empty
+```js
+const reducer = flatCombineReducers();
+
+expect(reducer({ A: 1, B: 2 }, "indifferentAction")).to.deep.equal({ A: 1, B: 2 });
+expect(reducer({ A: 1, B: 2 })).to.deep.equal({ A: 1, B: 2 });
+expect(reducer()).to.deep.equal({});
+```
 
 ### Combines multiple reducers into one
 ```js
 const reducer = flatCombineReducers(
-  (prevState, action) => ({...prevState, A: prevState.A + action.value}),
-  (prevState, action) => ({...prevState, B: prevState.B * action.value}),
+  (prevState, action) => ({A: prevState.A + action.value}),
+  (prevState, action) => ({B: prevState.B * action.value}),
 );
 
 expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
@@ -27,14 +36,14 @@ expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
 ### Supports separated initial state values as default parameters
 ```js
 const reducer = flatCombineReducers(
-  (prevState = { A: 1 }, action) => ({...prevState, A: prevState.A + action.value}),
-  (prevState = { B: 2 }, action) => ({...prevState, B: prevState.B * action.value}),
+  (prevState = { A: 1 }, action) => ({A: prevState.A + action.value}),
+  (prevState = { B: 2 }, action) => ({B: prevState.B * action.value}),
 );
 
 expect(reducer(undefined, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
 ```
 
-### Assign the states from right to left
+### Assigns the states from right to left
 ```js
 const reducer = flatCombineReducers(
   (prevState = { A: 1 }, action) => ({...prevState, A: prevState.A + action.value}),
