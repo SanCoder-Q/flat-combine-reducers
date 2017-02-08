@@ -1,5 +1,4 @@
 # flat-combine-reducers
----
 
 [![build status](https://travis-ci.org/SanCoder-Q/flat-combine-reducers.svg?branch=master)](https://travis-ci.org/SanCoder-Q/flat-combine-reducers)
 
