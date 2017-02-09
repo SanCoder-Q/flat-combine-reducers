@@ -34,7 +34,7 @@ function test() {
     .src('test/**/*.js')
     .pipe(mocha())
     .pipe(istanbul.writeReports({
-      reporters: ['lcov']
+      reporters: ['lcovonly', 'text', 'text-summary' ]
     }))
     .pipe(istanbul.enforceThresholds({
       thresholds: { global: 90 }
