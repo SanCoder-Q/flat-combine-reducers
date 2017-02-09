@@ -22,7 +22,8 @@ deploy:
   on:
     branch: master
     node: 7
-
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+notifications:
+  email: false
