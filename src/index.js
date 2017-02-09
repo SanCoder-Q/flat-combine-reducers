@@ -1,7 +1,18 @@
-export default function reduceReducers(...reducers) {
+const defaultOptions = {
+  keepPrevState: true
+};
+
+export default function reduceReducers() {
+  let args = [...arguments],
+      options = defaultOptions;
+
+  if (typeof args[args.length - 1] !== 'function') {
+    options = Object.assign({}, options, args.pop());
+  }
+
   return (prevState, action) => {
-    let newState = reducers
+    let newState = args
       .reduce((state, reducer) => Object.assign({}, state, reducer(prevState, action)), {});
-    return Object.assign({}, prevState, newState);
+    return options.keepPrevState ? Object.assign({}, prevState, newState) : newState;
   }
 }
