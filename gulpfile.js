@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const mocha = require('gulp-mocha');
 const eslint = require('gulp-eslint');
+const istanbul = require('gulp-istanbul');
 const spawn = require('child_process').spawn;
 
 function lint() {
@@ -14,14 +15,30 @@ function lint() {
     .pipe(eslint.failAfterError());
 }
 
+function hookIstanbul() {
+  return gulp
+    .src('src/**/*.js')
+    .pipe(babel({
+      presets: ['es2015', 'stage-0']
+    }))
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire());
+}
+
 function test() {
   require('babel-core/register')({
     presets: ['es2015', 'stage-0']
   });
 
   return gulp
-    .src('./test/*.js')
-    .pipe(mocha());
+    .src('test/**/*.js')
+    .pipe(mocha())
+    .pipe(istanbul.writeReports({
+      reporters: ['lcov']
+    }))
+    .pipe(istanbul.enforceThresholds({
+      thresholds: { global: 90 }
+    }));
 }
 
 function build() {
@@ -39,7 +56,9 @@ function publish(done) {
 
 gulp.task('lint', lint);
 
-gulp.task('test', ['lint'], test);
+gulp.task('istanbul', hookIstanbul);
+
+gulp.task('test', ['lint', 'istanbul'], test);
 
 gulp.task('build', ['test'], build);
 
