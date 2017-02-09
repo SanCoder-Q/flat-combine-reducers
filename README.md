@@ -12,6 +12,9 @@ The reason of the name is it flaten the `state` of using the [`combineReducers`]
 ```
 npm install --save flat-combine-reducers
 ```
+## Why
+To prevent the reducer growing too large, [Redux](http://redux.js.org/) provides a function called [`combineReducers`](http://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html) to let us structure the reducer. However, it will structure not only the reducer itself but also your state. Each state that managed by distinct reducer will be separated into a deep object with a specified key.
+Moreover, the combine logic should idealy focus on the combining only when create the store. And each reducers should manage their own states as the default values of the first parameter. However, the `combineReducers` require us to give the initial state as one parameter when calling it. Thus, it could make the responsibilities of the code a mess. 
 
 ## Examples
 
@@ -28,7 +31,7 @@ expect(reducer()).to.deep.equal({});
 ```js
 const reducer = flatCombineReducers(
   (prevState, action) => ({A: prevState.A + action.value}),
-  (prevState, action) => ({B: prevState.B * action.value}),
+  (prevState, action) => ({B: prevState.B * action.value})
 );
 
 expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
@@ -38,7 +41,7 @@ expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
 ```js
 const reducer = flatCombineReducers(
   (prevState = { A: 1 }, action) => ({A: prevState.A + action.value}),
-  (prevState = { B: 2 }, action) => ({B: prevState.B * action.value}),
+  (prevState = { B: 2 }, action) => ({B: prevState.B * action.value})
 );
 
 expect(reducer(undefined, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
@@ -48,7 +51,7 @@ expect(reducer(undefined, { value: 3 })).to.deep.equal({ A: 4, B: 6 });
 ```js
 const reducer = flatCombineReducers(
   (prevState = { A: 1 }, action) => ({...prevState, A: prevState.A + action.value}),
-  (prevState = { A: 2 }, action) => ({...prevState, A: prevState.A * action.value}),
+  (prevState = { A: 2 }, action) => ({...prevState, A: prevState.A * action.value})
 );
 
 expect(reducer(undefined, { value: 3 })).to.deep.equal({ A: 6 });
