@@ -14,7 +14,50 @@ npm install --save flat-combine-reducers
 ```
 ## Why
 To prevent the reducer growing too large, [Redux](http://redux.js.org/) provides a function called [`combineReducers`](http://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html) to let us structure the reducer. However, it will structure not only the reducer itself but also your state. Each state that managed by distinct reducer will be separated into a deep object with a specified key.
-Moreover, the combine logic should idealy focus on the combining only when create the store. And each reducers should manage their own states as the default values of the first parameter. However, the `combineReducers` require us to give the initial state as one parameter when calling it. Thus, it could make the responsibilities of the code a mess. 
+Moreover, the combine logic should ideally focus on the combining only when create the store. And each reducers should manage their own states as the default values of the first parameter. However, the `combineReducers` require us to give the initial state as one parameter when calling it. Thus, it could make the responsibilities of the code a mess. 
+
+## Options (Optional)
+You can pass an object to its last parameter to control the flatCombineReducers' behavior.
+
+```js
+const options = { mergePrevState: false }
+flatCombineReducers(reducerA, reducerB, options)
+```
+
+| OptionName  | DefaultValue | Description |
+| ---  | --- | --- |
+| [`mergePrevState`](#mergeprevstate)  | `true` | If true, the combined reducer will [`assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the returned state with the previous state. |
+
+### mergePrevState
+With its help, you can simplify your reducer logic and remove the duplicated [`Object.assign({}, state, PROCESSED_STATE)`](http://redux.js.org/docs/basics/Reducers.html)
+From:
+
+```js
+function reducerA(state = initialState, action) {
+  switch (action.type) {
+    case ACTION_TYPE_A:
+      return Object.assign({}, state, {
+        visibilityFilter: action.filter
+      });
+    default:
+      return state;
+  }
+}
+```
+
+To:
+
+```js
+function reducerA(state = initialState, action) {
+  switch (action.type) {
+    case ACTION_TYPE_A:
+      return {
+        visibilityFilter: action.filter
+      };
+  }
+}
+```
+
 
 ## Examples
 
@@ -26,6 +69,8 @@ expect(reducer({ A: 1, B: 2 }, "indifferentAction")).to.deep.equal({ A: 1, B: 2 
 expect(reducer({ A: 1, B: 2 })).to.deep.equal({ A: 1, B: 2 });
 expect(reducer()).to.deep.equal({});
 ```
+
+Note. You can change it by specify the option `mergePrevState`.
 
 ### Combines multiple reducers into one
 ```js
@@ -55,4 +100,14 @@ const reducer = flatCombineReducers(
 );
 
 expect(reducer(undefined, { value: 3 })).to.deep.equal({ A: 6 });
+```
+
+### Specify the option `mergePrevState` to control the behavior
+```js
+const reducer = flatCombineReducers(
+  (prevState, action) => ({A: prevState.A + action.value}),
+  { mergePrevState: false }
+);
+
+expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4 });
 ```
