@@ -32,6 +32,7 @@ flatCombineReducers(reducerA, reducerB, options)
 
 ### mergePrevState
 With its help, you can simplify your reducer logic and remove the duplicated [`Object.assign({}, state, PROCESSED_STATE)`](http://redux.js.org/docs/basics/Reducers.html)
+
 From:
 
 ```js

@@ -1,3 +1,5 @@
+require('babel-core/register');
+
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const mocha = require('gulp-mocha');
@@ -17,24 +19,19 @@ function lint() {
 
 function hookIstanbul() {
   return gulp
-    .src('src/**/*.js')
-    .pipe(babel({
-      presets: ['es2015', 'stage-0']
+    .src([ './src/**/*.js' ])
+    .pipe(istanbul({
+      instrumenter: require('babel-istanbul').Instrumenter
     }))
-    .pipe(istanbul())
     .pipe(istanbul.hookRequire());
 }
 
 function test() {
-  require('babel-core/register')({
-    presets: ['es2015', 'stage-0']
-  });
-
   return gulp
     .src('test/**/*.js')
-    .pipe(mocha())
+    .pipe(mocha({reporter: 'spec'}))
     .pipe(istanbul.writeReports({
-      reporters: ['lcovonly', 'text', 'text-summary' ]
+      reporters: ['lcovonly', 'text', 'text-summary', 'html']
     }))
     .pipe(istanbul.enforceThresholds({
       thresholds: { global: 90 }
@@ -44,15 +41,13 @@ function test() {
 function build() {
   return gulp
     .src('src/**/*.js')
-    .pipe(babel({
-      presets: ['es2015', 'stage-0']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('dist'));
 }
 
 function publish(done) {
   spawn('npm', ['publish'], { stdio: 'inherit' }).on('close', done);
-};
+}
 
 gulp.task('lint', lint);
 
