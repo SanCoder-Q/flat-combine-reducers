@@ -1,18 +1,25 @@
 const defaultOptions = {
-  keepPrevState: true
+  mergePrevState: true
 };
 
-export default function reduceReducers() {
-  let args = [...arguments],
-      options = defaultOptions;
+function partitionArgs(args) {
+  const lastArgs = args[args.length - 1];
 
-  if (typeof args[args.length - 1] !== 'function') {
-    options = Object.assign({}, options, args.pop());
+  if (typeof lastArgs !== 'function') {
+    return [args.slice(0, args.length - 1), lastArgs];
   }
 
-  return (prevState, action) => {
-    let newState = args
-      .reduce((state, reducer) => Object.assign({}, state, reducer(prevState, action)), {});
-    return options.keepPrevState ? Object.assign({}, prevState, newState) : newState;
-  }
+  return [args];
+}
+
+export default function flatCombineReducers() {
+  const [inputReducers, inputOptions] = partitionArgs([...arguments]);
+
+  const options = Object.assign({}, defaultOptions, inputOptions);
+
+  const reducers = options.mergePrevState ? [x=>x].concat(inputReducers) : inputReducers;
+
+  return (prevState, action) => reducers.reduce((state, reducer) =>
+    Object.assign({}, state, reducer(prevState, action)), {}
+  );
 }

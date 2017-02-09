@@ -43,7 +43,7 @@ describe ('flatCombineReducers', () => {
     expect(reducer(undefined, { value: 3 })).to.deep.equal({ A: 6 });
   });
 
-  it('should keep the prevState when setting the option `keepPrevState` to true(default)', () => {
+  it('should keep the prevState when setting the option `mergePrevState` to true(default)', () => {
     const reducer = flatCombineReducers(
       (prevState, action) => ({A: prevState.A + action.value})
     );
@@ -51,10 +51,10 @@ describe ('flatCombineReducers', () => {
     expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4, B: 2 });
   });
 
-  it('should not keep the prevState when setting the option `keepPrevState` to false', () => {
+  it('should not keep the prevState when setting the option `mergePrevState` to false', () => {
     const reducer = flatCombineReducers(
       (prevState, action) => ({A: prevState.A + action.value}),
-      { keepPrevState: false }
+      { mergePrevState: false }
     );
 
     expect(reducer({ A: 1, B: 2 }, { value: 3 })).to.deep.equal({ A: 4 });
