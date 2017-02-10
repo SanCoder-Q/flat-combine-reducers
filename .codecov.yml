@@ -1,0 +1,9 @@
+codecov:
+  branch: master
+  bot: sancoder-q
+
+comment:
+  layout: "header, diff, tree, changes, sunburst"
+  branches:
+    - *
+  behavior: default
