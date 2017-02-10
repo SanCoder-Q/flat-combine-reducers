@@ -4,6 +4,5 @@ codecov:
 
 comment:
   layout: "header, diff, tree, changes, sunburst"
-  branches:
-    - *
+  branches: null
   behavior: default
