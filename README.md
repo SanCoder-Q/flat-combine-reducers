@@ -5,6 +5,7 @@
 [![npm](https://img.shields.io/npm/dt/flat-combine-reducers.svg)](https://www.npmjs.com/package/flat-combine-reducers)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/336c101353bf45b5b32f5672fdf88553)](https://www.codacy.com/app/sancoder-q/flat-combine-reducers?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SanCoder-Q/flat-combine-reducers&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/SanCoder-Q/flat-combine-reducers/branch/master/graph/badge.svg)](https://codecov.io/gh/SanCoder-Q/flat-combine-reducers)
+
 [![Dependency Status](https://david-dm.org/sancoder-q/flat-combine-reducers.svg)](https://david-dm.org/sancoder-q/flat-combine-reducers)
 [![devDependency Status](https://david-dm.org/sancoder-q/flat-combine-reducers/dev-status.svg)](https://david-dm.org/sancoder-q/flat-combine-reducers#info=devDependencies)
 [![Greenkeeper badge](https://badges.greenkeeper.io/SanCoder-Q/flat-combine-reducers.svg)](https://greenkeeper.io/)
