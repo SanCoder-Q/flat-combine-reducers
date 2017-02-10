@@ -13,12 +13,13 @@ before_script:
   - yarn
 script:
   - gulp build
+  - codecov
 after_success:
   - npm install -g semantic-release@^4.3.3
 deploy:
   skip_cleanup: true
   provider: script
-  script: codecov && semantic-release pre && npm publish && semantic-release post || true
+  script: semantic-release pre && npm publish && semantic-release post || true
   on:
     branch: master
     node: 7
