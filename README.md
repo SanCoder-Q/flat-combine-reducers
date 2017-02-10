@@ -14,11 +14,12 @@
 Turns multiple reducer functions, into a single reducer function, with support of declaring the initial states as default parameters.
 
 It will call all the child reducers, and gather their results into a single state object by [`assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the result objects together from left to right.
-The reason of the name is it flaten the `state` of using the [`combineReducers`](https://github.com/reactjs/redux/blob/master/docs/api/combineReducers.md) in *redux*.
+The reason of the name is it flaten the `state` of using the [`combineReducers`](https://github.com/reactjs/redux/blob/master/docs/api/combineReducers.md) in **redux**.
 
 ```
 npm install --save flat-combine-reducers
 ```
+
 ## Why
 To prevent the reducer growing too large, [Redux](http://redux.js.org/) provides a function called [`combineReducers`](http://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html) to let us structure the reducer. However, it will structure not only the reducer itself but also your state. Each state that managed by distinct reducer will be separated into a deep object with a specified key.
 Moreover, the combine logic should ideally focus on the combining only when create the store. And each reducers should manage their own states as the default values of the first parameter. However, the `combineReducers` require us to give the initial state as one parameter when calling it. Thus, it could make the responsibilities of the code a mess. 
