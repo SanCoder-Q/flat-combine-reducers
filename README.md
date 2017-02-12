@@ -11,17 +11,17 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/SanCoder-Q/flat-combine-reducers.svg)](https://greenkeeper.io/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Turns multiple reducer functions, into a single reducer function, with support of declaring the initial states as default parameters.
+Turns multiple reducer functions, into a single reducer function, with the support of declaring the initial states as default parameters.
 
 It will call all the child reducers, and gather their results into a single state object by [`assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the result objects together from left to right.
-The reason of the name is it flaten the `state` of using the [`combineReducers`](https://github.com/reactjs/redux/blob/master/docs/api/combineReducers.md) in *redux*.
+The reason for the name is it flatten the `state` of using the [`combineReducers`](https://github.com/reactjs/redux/blob/master/docs/api/combineReducers.md) in *redux*.
 
 ```
 npm install --save flat-combine-reducers
 ```
 ## Why
 To prevent the reducer growing too large, [Redux](http://redux.js.org/) provides a function called [`combineReducers`](http://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html) to let us structure the reducer. However, it will structure not only the reducer itself but also your state. Each state that managed by distinct reducer will be separated into a deep object with a specified key.
-Moreover, the combine logic should ideally focus on the combining only when create the store. And each reducers should manage their own states as the default values of the first parameter. However, the `combineReducers` require us to give the initial state as one parameter when calling it. Thus, it could make the responsibilities of the code a mess. 
+Moreover, the combining logic should ideally focus on the combining only when creating the store. And each reducer should manage their own states as the default values of the first parameter. `flatCombineReducers` allow us to give the initial state as default parameters. Thus, it could put the responsibility of each reducer in order.
 
 ## Options (Optional)
 You can pass an object to its last parameter to control the flatCombineReducers' behavior.
@@ -36,7 +36,7 @@ flatCombineReducers(reducerA, reducerB, options)
 | [`mergePrevState`](#mergeprevstate)  | `true` | If true, the combined reducer will [`assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the returned state with the previous state. |
 
 ### mergePrevState
-With its help, you can simplify your reducer logic and remove the duplicated [`Object.assign({}, state, PROCESSED_STATE)`](http://redux.js.org/docs/basics/Reducers.html)
+With its help, you can simplify your reducer logic and avoid the boilerplate likes [`Object.assign({}, state, PROCESSED_STATE)`](http://redux.js.org/docs/basics/Reducers.html)
 
 From:
 
@@ -78,7 +78,7 @@ expect(reducer({ A: 1, B: 2 })).to.deep.equal({ A: 1, B: 2 });
 expect(reducer()).to.deep.equal({});
 ```
 
-Note. You can change it by specify the option `mergePrevState`.
+Note. You can change it by specifying the option `mergePrevState`.
 
 ### Combines multiple reducers into one
 ```js
