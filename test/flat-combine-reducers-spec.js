@@ -1,7 +1,7 @@
 'use strict';
 
 import { expect } from "chai";
-import flatCombineReducers from "../src/index.js";
+import flatCombineReducers from "../src/flat-combine-reducers.js";
 
 describe ('flatCombineReducers', () => {
   it('should produce a reducer which take any state and return the same state when no reducer is passed in', () => {
