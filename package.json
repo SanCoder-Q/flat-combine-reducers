@@ -2,7 +2,7 @@
   "name": "flat-combine-reducers",
   "version": "0.0.0-development",
   "description": "Turns multiple reducers into a single reducer with support of declare the initial states as default parameters",
-  "main": "dist/index.js",
+  "main": "dist/flat-combine-reducers.js",
   "keywords": [
     "reduce",
     "reducer",
